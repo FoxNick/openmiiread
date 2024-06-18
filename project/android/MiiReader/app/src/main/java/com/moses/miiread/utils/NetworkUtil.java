@@ -7,6 +7,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import com.moses.miiread.MApplication;
 import com.moses.miiread.R;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 
 import java.net.URL;
 import java.util.HashMap;
@@ -51,8 +53,8 @@ public class NetworkUtil {
             relativePath = relativePath.substring(header.length());
         }
         try {
-            URL absoluteUrl = new URL(baseURL);
-            URL parseUrl = new URL(absoluteUrl, relativePath);
+            URL absoluteUrl = Urls.create(baseURL, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
+            URL parseUrl = Urls.create(absoluteUrl, relativePath, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             relativePath = parseUrl.toString();
             if (header != null) {
                 relativePath = header + relativePath;
