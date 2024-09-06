@@ -7,6 +7,7 @@ import com.moses.miiread.bean.*;
 import com.moses.miiread.constant.AppConstant;
 import com.moses.miiread.dao.*;
 import com.moses.miiread.utils.StringUtils;
+import java.nio.file.Files;
 import net.ricecode.similarity.JaroWinklerStrategy;
 import net.ricecode.similarity.StringSimilarityService;
 import net.ricecode.similarity.StringSimilarityServiceImpl;
@@ -125,7 +126,7 @@ public class BookshelfHelp {
         }
         File file = getBookFile(folderName, index, fileName);
         //获取流并存储
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+        try (BufferedWriter writer = Files.newBufferedWriter(file.toPath())) {
             writer.write(fileName + "\n\n");
             writer.write(content);
             writer.write("\n\n");
