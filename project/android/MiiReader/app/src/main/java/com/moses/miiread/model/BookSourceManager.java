@@ -6,6 +6,8 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.hwangjr.rxbus.RxBus;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -218,7 +220,7 @@ public class BookSourceManager {
                                     .buildDelete().executeDeleteWithoutDetachingEntities();
                         } else {
                             try {
-                                new URL(bookSourceBean.getBookSourceUrl());
+                                Urls.create(bookSourceBean.getBookSourceUrl(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                                 bookSourceBean.setSerialNumber(0);
                                 addBookSource(bookSourceBean);
                             } catch (Exception exception) {
