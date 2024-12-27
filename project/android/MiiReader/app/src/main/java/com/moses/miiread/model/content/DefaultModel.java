@@ -1,5 +1,7 @@
 package com.moses.miiread.model.content;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -28,7 +30,7 @@ public class DefaultModel extends BaseModelImpl implements IStationBookModel {
     private DefaultModel(String tag) {
         this.tag = tag;
         try {
-            URL url = new URL(tag);
+            URL url = Urls.create(tag, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             name = url.getHost();
         } catch (MalformedURLException e) {
             e.printStackTrace();

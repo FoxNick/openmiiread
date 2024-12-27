@@ -10,6 +10,8 @@ import android.os.Handler;
 import android.os.IBinder;
 
 import com.hwangjr.rxbus.RxBus;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 
 import java.net.URL;
 import java.util.List;
@@ -180,7 +182,7 @@ public class CheckSourceService extends Service {
 
         private void startCheck() {
                 try {
-                    new URL(sourceBean.getBookSourceUrl());
+                    Urls.create(sourceBean.getBookSourceUrl(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                     BaseModelImpl.getInstance().getRetrofitString(sourceBean.getBookSourceUrl())
                             .create(IHttpGetApi.class)
                             .getWebContent(sourceBean.getBookSourceUrl(), AnalyzeHeaders.getMap(sourceBean))

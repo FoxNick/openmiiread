@@ -11,6 +11,8 @@ import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.kunfei.basemvplib.BasePresenterImpl;
 import com.kunfei.basemvplib.impl.IView;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 
 import java.net.URL;
 import java.util.List;
@@ -115,7 +117,7 @@ public class MainPresenter extends BasePresenterImpl<MainContract.View> implemen
                 e.onComplete();
                 return;
             }
-            URL url = new URL(bookUrl);
+            URL url = Urls.create(bookUrl, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             BookInfoBean temp = DbHelper.getDaoSession().getBookInfoBeanDao().queryBuilder()
                     .where(BookInfoBeanDao.Properties.NoteUrl.eq(bookUrl)).limit(1).build().unique();
             if (temp != null) {
