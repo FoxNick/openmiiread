@@ -39,6 +39,7 @@ import com.moses.miiread.view.adapter.base.OnItemClickListenerTwo;
 import com.moses.miiread.widget.bottomsheet.BaseBottomSheetDialogFragment;
 import com.moses.miiread.widget.evaluator.BezierEvaluator;
 import com.moses.miiread.widget.modialog.MoDialogHUD;
+import java.security.SecureRandom;
 
 import java.util.Iterator;
 import java.util.Queue;
@@ -92,7 +93,7 @@ public class AboutActivity extends MBaseActivity {
 
     //彩蛋容器
     private Queue<ImageView> eggshellQueue = new ArrayBlockingQueue<>(10);
-    private Random random = new Random();
+    private Random random = new SecureRandom();
     private Point iconPoint;
 
     public static void startThis(Context context) {
